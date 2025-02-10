@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 
 const { User } = require("./models/User");
 
+const config = require("./config/key");
+
 //application/x-www-form-urlencoded 데이터를 분석하여 가져옴
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -14,18 +16,15 @@ app.use(bodyParser.json());
 const mongoose = require("mongoose");
 
 mongoose
-  .connect(
-    "mongodb+srv://admin:test1234@cluster0.u1jms.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  )
+  .connect(config.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("MongoDB Connected.."))
   .catch((err) => console.log(err));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello World! hihi");
 });
 
 app.post("/register", (req, res) => {
